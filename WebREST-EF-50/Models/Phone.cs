@@ -1,20 +1,24 @@
-﻿namespace WebREST_EF_50.Models
+﻿using WebREST_EF_50.Assistants;
+
+namespace WebREST_EF_50.Models
 {
 	public class Phone
 	{
-		private ContactType _type;
 		public long Id { get; set; }
 
-		public ContactType? Type
+		public string PhoneNumber { get; set; }
+		
+		public ContactType Type { get; set; }
+		
+		public Phone(string phoneNumber = Defaults.String, ContactType type = ContactType.Unknown)
 		{
-			get => _type;
-			set => _type = value ?? ContactType.Unknown;
+			PhoneNumber = phoneNumber;
+			Type = type;
 		}
 
-		public Phone(long id, ContactType type = ContactType.Unknown)
+		public Phone(long id, ContactType type, string number) : this(number, type)
 		{
 			Id = id;
-			Type = type;
 		}
 	}
 }
