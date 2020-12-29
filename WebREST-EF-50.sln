@@ -2,6 +2,8 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebREST-EF-50", "WebREST-EF-50\WebREST-EF-50.csproj", "{3AD24727-F315-48E8-862E-5A478C7914FD}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BalzorCRM-EF", "BalzorCRM-EF\BalzorCRM-EF.csproj", "{5AB8154A-44E0-484C-8A0F-4C65F8BBA98E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -12,5 +14,9 @@ Global
 		{3AD24727-F315-48E8-862E-5A478C7914FD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3AD24727-F315-48E8-862E-5A478C7914FD}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3AD24727-F315-48E8-862E-5A478C7914FD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5AB8154A-44E0-484C-8A0F-4C65F8BBA98E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5AB8154A-44E0-484C-8A0F-4C65F8BBA98E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5AB8154A-44E0-484C-8A0F-4C65F8BBA98E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5AB8154A-44E0-484C-8A0F-4C65F8BBA98E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
