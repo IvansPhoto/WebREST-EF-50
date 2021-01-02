@@ -8,7 +8,11 @@ namespace WebREST_EF_50.Services
 	{
 		public async Task<List<Objective>> GetObjectives(int limit, string query)
 		{
-			var obj = new Objective(title: "First objective", createDate: new System.DateTime(), finishDate: new System.DateTime(), new User(name: "Jan", surname: "Miller"), description: "A call");
+			var obj = new Objective(title: "First objective")
+			{
+				ResponsibleUser = new User(name: "Jan", surname: "Miller"),
+				Description = "A call"
+			};
 			var objList = new List<Objective>() {obj};
 			return objList;
 		}

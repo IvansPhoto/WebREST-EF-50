@@ -13,6 +13,7 @@ using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
 using Microsoft.EntityFrameworkCore;
 using WebREST_EF_50.Data;
+using WebREST_EF_50.Services;
 
 namespace WebREST_EF_50
 {
@@ -28,8 +29,11 @@ namespace WebREST_EF_50
 		// This method gets called by the runtime. Use this method to add services to the container.
 		public void ConfigureServices(IServiceCollection services)
 		{
-			services.AddDbContext<DataContext>(x => x.UseSqlite(Configuration.GetConnectionString("SQLite")));
+			services.AddDbContext<DataContext>(
+				x => x.UseSqlite(Configuration.GetConnectionString("SQLite"))
+				);
 			services.AddControllers();
+			services.AddScoped<IUserService, UserService>();
 		}
 
 		// This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

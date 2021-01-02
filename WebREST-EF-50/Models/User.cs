@@ -28,53 +28,25 @@ namespace WebREST_EF_50.Models
 			Name = name;
 			Surname = surname;
 		}
-
-		public User(string name, string surname, List<Phone> phones) : this(name, surname)
-		{
-			Phones = phones;
-		}
 		
-		public User(string name, string surname, List<Email> emails) : this(name, surname)
+		/// <summary>
+		/// Admin is a User with extended rights to manipulate with data of all users.
+		/// TODO: Check to work this nested class with EF in single table or make a separate class. 
+		/// </summary>
+		public class Admin : User
 		{
-			Emails = emails;
+			public AccessLevel Access { get; set; }
+		
+			public enum AccessLevel
+			{
+				LocalAdmin = 0,
+				SuperVisor = 1
+			}
+			public Admin(string name, string surname, AccessLevel access)
+				: base(name, surname)
+			{
+				Access = access;
+			}
 		}
-		public User(string name, string surname, List<Phone> phones, List<Email> emails) : this(name, surname)
-		{
-			Phones = phones;
-			Emails = emails;
-		}
-		public User(long id, string name, string surname, List<Phone> phones, List<Email> emails) : this(name, surname)
-		{
-			Id = id;
-			Phones = phones;
-			Emails = emails;
-		}
-
-		// <summary>
-		// Admin is a User with extended rights to manipulate with data of all users.
-		// TODO: Check to work this nested class with EF in single table or make a separate class. 
-		// </summary>
-		// class Admin : User
-		// {
-		// 	public AccessLevel Access { get; set; }
-		//
-		// 	public enum AccessLevel
-		// 	{
-		// 		LocalAdmin = 0,
-		// 		SuperVisor = 1
-		// 	}
-		// 	public Admin(string name, List<Phone> phones, List<Email> emails, AccessLevel access,
-		// 		string surname = Defaults.String)
-		// 		: base(name, surname, phones, emails)
-		// 	{
-		// 		Access = access;
-		// 	}
-		// 	public Admin(long id, string name, List<Phone> phones, List<Email> emails, AccessLevel access,
-		// 		string surname = Defaults.String)
-		// 		: base(id, name, surname, phones, emails)
-		// 	{
-		// 		Access = access;
-		// 	}
-		// }
 	}
 }

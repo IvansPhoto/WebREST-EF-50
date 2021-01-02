@@ -8,6 +8,10 @@ namespace WebREST_EF_50.Controllers
 	[Route(RouteNames.ObjectiveRoute)]
 	public class CompanyController : Controller
 	{
+		public CompanyController()
+		{
+			
+		}
 		[HttpGet]
 		public async Task<IActionResult> GetObjectives()
 		{
