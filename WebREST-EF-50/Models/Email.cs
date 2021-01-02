@@ -6,11 +6,11 @@ namespace WebREST_EF_50.Models
 	{
 		public long Id { get; set; }
 
-		public string EmailAddress { get; set; }
+		public string EmailAddress { get; set; } = string.Empty;
 
-		public ContactType Type { get; set; }
+		public ContactType Type { get; set; } = ContactType.Unknown;
 		
-		public Email(string emailAddress = Defaults.String, ContactType type = ContactType.Unknown)
+		public Email(string emailAddress, ContactType type = ContactType.Unknown)
 		{
 			EmailAddress = emailAddress;
 			Type = type;

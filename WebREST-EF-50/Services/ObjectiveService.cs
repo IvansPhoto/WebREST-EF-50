@@ -6,9 +6,11 @@ namespace WebREST_EF_50.Services
 {
 	public class ObjectiveService : IObjectiveService
 	{
-		public Task<List<Objective>> GetObjectives(int limit, string query)
+		public async Task<List<Objective>> GetObjectives(int limit, string query)
 		{
-			throw new System.NotImplementedException();
+			var obj = new Objective(title: "First objective", createDate: new System.DateTime(), finishDate: new System.DateTime(), new User(name: "Jan", surname: "Miller"), description: "A call");
+			var objList = new List<Objective>() {obj};
+			return objList;
 		}
 
 		public Task<List<Objective>> GetOneObjective(int id)

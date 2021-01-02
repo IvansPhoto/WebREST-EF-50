@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel.DataAnnotations;
 using WebREST_EF_50.Assistants;
 
 namespace WebREST_EF_50.Models
@@ -6,15 +7,19 @@ namespace WebREST_EF_50.Models
 	public class Objective
 	{
 		public long Id { get; set; }
-		public ObjType ObjectType { get; set; }
+		public ObjType ObjectType { get; set; } = ObjType.Call;
+		
+		[Required]
 		public string Title { get; set; }
-		public string? Description { get; set; }
-		public bool IsFinished { get; set; }
-		public DateTime CreateDate { get; set; }
-		public DateTime FinishDate { get; set; }
-		public Company Company { get; set; }
-		public Employee Employee { get; set; }
+		public string? Description { get; set; } = string.Empty;
+		public bool IsFinished { get; set; } = false;
+		public DateTime CreateDate { get; set; } = new DateTime();
+		public DateTime FinishDate { get; set; } = new DateTime();
+		public Company? Company { get; set; }
+		public Employee? Employee { get; set; }
 		public Project? Project { get; set; }
+
+		[Required]
 		public User ResponsibleUser { get; set; }
 
 		public enum ObjType
@@ -25,19 +30,30 @@ namespace WebREST_EF_50.Models
 			Message,
 			Demonstration
 		}
+		
+		public Objective(string title, User responsibleUser)
+		{
+			Title = title;
+			ResponsibleUser = responsibleUser;
+		}
 
-		public Objective(string title, DateTime createDate, DateTime finishDate, User responsibleUser, Project project, string description,
-			bool isFinished = false, ObjType objectType = ObjType.Call)
+		public Objective(string title, DateTime createDate, DateTime finishDate, User responsibleUser, string description,
+			bool isFinished = false, ObjType objectType = ObjType.Call) : this(title, responsibleUser)
 		{
 			ObjectType = objectType;
-			Title = title;
 			Description = description;
 			IsFinished = isFinished;
 			CreateDate = createDate;
 			FinishDate = finishDate;
-			ResponsibleUser = responsibleUser;
+		}
+
+		public Objective(string title, DateTime createDate, DateTime finishDate, User responsibleUser, Project project, string description,
+	bool isFinished = false, ObjType objectType = ObjType.Call) : 
+			this(title, createDate, finishDate, responsibleUser, description, isFinished, objectType)
+		{
 			Project = project;
 		}
+
 
 		public Objective(string title, DateTime createDate, DateTime finishDate, User responsibleUser, Company company, Employee employee, Project project,
 			string description = Defaults.String, bool isFinished = false, ObjType objectType = ObjType.Call) :

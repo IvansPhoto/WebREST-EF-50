@@ -6,11 +6,11 @@ namespace WebREST_EF_50.Models
 	{
 		public long Id { get; set; }
 
-		public string PhoneNumber { get; set; }
+		public string PhoneNumber { get; set; } = string.Empty;
+
+		public ContactType Type { get; set; } = ContactType.Unknown;
 		
-		public ContactType Type { get; set; }
-		
-		public Phone(string phoneNumber = Defaults.String, ContactType type = ContactType.Unknown)
+		public Phone(string phoneNumber, ContactType type = ContactType.Unknown)
 		{
 			PhoneNumber = phoneNumber;
 			Type = type;
