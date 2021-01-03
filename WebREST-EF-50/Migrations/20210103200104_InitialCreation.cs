@@ -31,7 +31,7 @@ namespace WebREST_EF_50.Migrations
                         .Annotation("Sqlite:Autoincrement", true),
                     Name = table.Column<string>(type: "TEXT", nullable: false),
                     ResponsibleUserId = table.Column<long>(type: "INTEGER", nullable: false),
-                    Address = table.Column<string>(type: "TEXT", nullable: true),
+                    Address = table.Column<string>(type: "TEXT", nullable: false),
                     HqCompanyId = table.Column<long>(type: "INTEGER", nullable: true)
                 },
                 constraints: table =>
@@ -157,7 +157,7 @@ namespace WebREST_EF_50.Migrations
                         .Annotation("Sqlite:Autoincrement", true),
                     Title = table.Column<string>(type: "TEXT", nullable: false),
                     ResponsibleUserId = table.Column<long>(type: "INTEGER", nullable: false),
-                    Description = table.Column<string>(type: "TEXT", nullable: true),
+                    Description = table.Column<string>(type: "TEXT", nullable: false),
                     IsFinished = table.Column<bool>(type: "INTEGER", nullable: false),
                     StartDate = table.Column<DateTime>(type: "TEXT", nullable: false),
                     FinishDate = table.Column<DateTime>(type: "TEXT", nullable: false),
@@ -195,7 +195,7 @@ namespace WebREST_EF_50.Migrations
                         .Annotation("Sqlite:Autoincrement", true),
                     ResponsibleUserId = table.Column<long>(type: "INTEGER", nullable: false),
                     Title = table.Column<string>(type: "TEXT", nullable: false),
-                    Description = table.Column<string>(type: "TEXT", nullable: true),
+                    Description = table.Column<string>(type: "TEXT", nullable: false),
                     ObjectType = table.Column<int>(type: "INTEGER", nullable: false),
                     IsFinished = table.Column<bool>(type: "INTEGER", nullable: false),
                     CreateDate = table.Column<DateTime>(type: "TEXT", nullable: false),

@@ -9,7 +9,7 @@ using WebREST_EF_50.Data;
 namespace WebREST_EF_50.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20210102151903_InitialCreation")]
+    [Migration("20210103200104_InitialCreation")]
     partial class InitialCreation
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -25,6 +25,7 @@ namespace WebREST_EF_50.Migrations
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("Address")
+                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<long?>("HqCompanyId")
@@ -120,6 +121,7 @@ namespace WebREST_EF_50.Migrations
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Description")
+                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<long?>("EmployeeId")
@@ -200,6 +202,7 @@ namespace WebREST_EF_50.Migrations
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("Description")
+                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<long?>("EmployeeId")

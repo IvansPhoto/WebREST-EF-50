@@ -14,19 +14,16 @@ namespace WebREST_EF_50.Models
 		[Required]
 		public User ResponsibleUser { get; set; }
 
-		public string? Description { get; set; } = string.Empty;
+		public string Description { get; set; } = string.Empty;
 		public bool IsFinished { get; set; } = false;
 		public DateTime StartDate { get; set; } = new();
 		public DateTime FinishDate { get; set; } = new();
 		public Company? Company { get; set; }
 		public Employee? Employee { get; set; }
 
-		public Project(string title, bool isFinished = false, DateTime startDate = new(), DateTime finishDate = new())
+		public Project(string title)
 		{
 			Title = title;
-			IsFinished = isFinished;
-			StartDate = startDate;
-			FinishDate = finishDate;
 		}
 	}
 }

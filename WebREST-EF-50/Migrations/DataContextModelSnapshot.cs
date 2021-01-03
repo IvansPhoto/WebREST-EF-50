@@ -23,6 +23,7 @@ namespace WebREST_EF_50.Migrations
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("Address")
+                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<long?>("HqCompanyId")
@@ -118,6 +119,7 @@ namespace WebREST_EF_50.Migrations
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Description")
+                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<long?>("EmployeeId")
@@ -198,6 +200,7 @@ namespace WebREST_EF_50.Migrations
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("Description")
+                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<long?>("EmployeeId")

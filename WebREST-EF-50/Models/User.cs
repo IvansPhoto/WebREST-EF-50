@@ -7,7 +7,6 @@ namespace WebREST_EF_50.Models
 {
 	public class User
 	{
-		//[JsonPropertyName(DbNames.User.Id)]
 		public long Id { get; set; }
 		
 		[Required]

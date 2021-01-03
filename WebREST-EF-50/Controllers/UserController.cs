@@ -18,13 +18,14 @@ namespace WebREST_EF_50.Controllers
         {
             _userService = userService;
         }
-        
+
         [HttpGet]
         public async Task<IActionResult> GetUsers()
         {
             List<User> users = await _userService.GetUsers();
             if (users.Count == 0) return NotFound();
-            return Ok();
+            users.ForEach(user => Console.WriteLine($"{user.Id} {user.Name} {user.Surname}"));
+            return Ok(users);
         }
 
         [HttpGet("{userId}")]
@@ -32,7 +33,8 @@ namespace WebREST_EF_50.Controllers
         {
             Console.WriteLine(userId);
             var user = await _userService.GetOneUser(userId);
-            if(user == null) return NotFound();
+            if (user == null) return NotFound();
+            Console.WriteLine($"{user.Id} {user.Name} {user.Surname}");
             return Ok(user);
         }
 
@@ -41,11 +43,12 @@ namespace WebREST_EF_50.Controllers
         {
             Console.WriteLine(query);
             var user = await _userService.FindUser(query);
-            if(user == null) return NotFound();
+            Console.WriteLine($"{user.Id} {user.Name} {user.Surname}");
+            if (user == null) return NotFound();
             return Ok(user);
         }
 
-        [HttpPost("add")]
+        [HttpPost]
         [Consumes("application/json")]
         public async Task<IActionResult> PostOneUser([FromBody] User user)
         {
@@ -55,13 +58,13 @@ namespace WebREST_EF_50.Controllers
 
         [HttpPut]
         [Consumes("application/json")]
-        public async Task<IActionResult> UpdateUsers([FromBody] User user)
+        public async Task<IActionResult> UpdateOneUser([FromBody] User user)
         {
-            Console.WriteLine(user);
+            Console.WriteLine($"{user.Id} {user.Name} {user.Surname}");
             return Ok(await _userService.UpdateOneUser(user));
         }
 
-        [HttpDelete("{userId}")]
+        [HttpDelete("delete/{userId}")]
         public async Task<IActionResult> DeleteOneUser([FromRoute] int userId)
         {
             return Ok(await _userService.DeleteOneUser(userId));

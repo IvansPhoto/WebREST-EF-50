@@ -13,7 +13,7 @@ namespace WebREST_EF_50.Models
 		
 		[Required]
 		public string Title { get; set; }
-		public string? Description { get; set; } = string.Empty;
+		public string Description { get; set; } = string.Empty;
 		public ObjType ObjectType { get; set; } = ObjType.Call;
 		public bool IsFinished { get; set; } = false;
 		public DateTime CreateDate { get; set; } = new();
