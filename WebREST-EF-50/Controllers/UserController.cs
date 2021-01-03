@@ -1,7 +1,9 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using WebREST_EF_50.Assistants;
+using WebREST_EF_50.Models;
 using WebREST_EF_50.Services;
 
 namespace WebREST_EF_50.Controllers
@@ -20,33 +22,49 @@ namespace WebREST_EF_50.Controllers
         [HttpGet]
         public async Task<IActionResult> GetUsers()
         {
-            var user = await _userService.GetUsers();
-            return Ok(user);
-        }
-
-        [HttpGet()]
-        public async Task<IActionResult> GetOneUser(int? id, string? query)
-        {
-            var user = await _userService.GetOneUser(id: id, query: query);
-            return Ok(user);
-        }
-
-        [HttpPost]
-        public async Task<IActionResult> PostOneUser()
-        {
+            List<User> users = await _userService.GetUsers();
+            if (users.Count == 0) return NotFound();
             return Ok();
+        }
+
+        [HttpGet("{userId}")]
+        public async Task<IActionResult> GetOneUser(int userId)
+        {
+            Console.WriteLine(userId);
+            var user = await _userService.GetOneUser(userId);
+            if(user == null) return NotFound();
+            return Ok(user);
+        }
+
+        [HttpGet("find/{query}")]
+        public async Task<IActionResult> FindUser(string query)
+        {
+            Console.WriteLine(query);
+            var user = await _userService.FindUser(query);
+            if(user == null) return NotFound();
+            return Ok(user);
+        }
+
+        [HttpPost("add")]
+        [Consumes("application/json")]
+        public async Task<IActionResult> PostOneUser([FromBody] User user)
+        {
+            Console.WriteLine(user);
+            return Ok(await _userService.PostOneUser(user));
         }
 
         [HttpPut]
-        public async Task<IActionResult> UpdateUsers()
+        [Consumes("application/json")]
+        public async Task<IActionResult> UpdateUsers([FromBody] User user)
         {
-            return Ok();
+            Console.WriteLine(user);
+            return Ok(await _userService.UpdateOneUser(user));
         }
 
-        [HttpDelete]
-        public async Task<IActionResult> DeleteOneUser()
+        [HttpDelete("{userId}")]
+        public async Task<IActionResult> DeleteOneUser([FromRoute] int userId)
         {
-            return Ok();
+            return Ok(await _userService.DeleteOneUser(userId));
         }
     }
 }

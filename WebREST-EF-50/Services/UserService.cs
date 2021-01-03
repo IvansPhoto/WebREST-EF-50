@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -19,16 +20,19 @@ namespace WebREST_EF_50.Services
 
         public async Task<List<User>> GetUsers()
         {
-            List<User> users = await _dbContext.Users.ToListAsync();
-            return users;
+            return await _dbContext.Users.ToListAsync();
         }
 
-        public async Task<User> GetOneUser(int? id, string? query)
+        public async Task<User> GetOneUser(int id)
         {
-            User user = await _dbContext.Users.FirstOrDefaultAsync(
-                u => u.Id == id || u.Name == query || u.Surname == query
+            return await _dbContext.Users.FirstOrDefaultAsync(u => u.Id == id);
+        }
+
+        public async Task<User> FindUser(string query)
+        {
+            return await _dbContext.Users.FirstOrDefaultAsync(
+                u => u.Name.Contains(query) || u.Surname.Contains(query)
             );
-            return user;
         }
 
         public async Task<int> PostOneUser(User user)
