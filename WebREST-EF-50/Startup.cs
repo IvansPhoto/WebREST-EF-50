@@ -21,10 +21,16 @@ namespace WebREST_EF_50
 		// This method gets called by the runtime. Use this method to add services to the container.
 		public void ConfigureServices(IServiceCollection services)
 		{
+			
 			services.AddDbContext<DataContext>(
 				x => x.UseSqlite(Configuration.GetConnectionString("SQLite"))
 				);
 			services.AddControllers();
+			//To prevent cycling
+			services.AddControllers().AddNewtonsoftJson();
+			services.AddControllersWithViews().AddNewtonsoftJson();
+			services.AddRazorPages().AddNewtonsoftJson();
+			
 			services.AddScoped<IUserService, UserService>();
 			services.AddScoped<IPhonesEmailService, PhonesEmailService>();
 		}

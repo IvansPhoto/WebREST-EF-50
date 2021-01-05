@@ -17,10 +17,10 @@ namespace WebREST_EF_50.Models
 		public List<Phone> Phones { get; set; } = new();
 		public List<Email> Emails { get; set; } = new();
 
-		public List<Objective> Objectives { get; set; } = new();
-		public List<Company> Companies { get; set; } = new();
-		public List<Employee> Employees { get; set; } = new();
-		public List<Project> Projects { get; set; } = new();
+		// public List<Objective> Objectives { get; set; } = new();
+		// public List<Company> Companies { get; set; } = new();
+		// public List<Employee> Employees { get; set; } = new();
+		// public List<Project> Projects { get; set; } = new();
 		
 		public User(string name, string surname)
 		{

@@ -9,7 +9,7 @@ using WebREST_EF_50.Data;
 namespace WebREST_EF_50.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20210105095322_ModelsAllRelations")]
+    [Migration("20210105102755_ModelsAllRelations")]
     partial class ModelsAllRelations
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -35,7 +35,7 @@ namespace WebREST_EF_50.Migrations
                         .IsRequired()
                         .HasColumnType("TEXT");
 
-                    b.Property<long>("ResponsibleUserId")
+                    b.Property<long?>("ResponsibleUserId")
                         .HasColumnType("INTEGER");
 
                     b.HasKey("Id");
@@ -93,7 +93,7 @@ namespace WebREST_EF_50.Migrations
                         .IsRequired()
                         .HasColumnType("TEXT");
 
-                    b.Property<long>("ResponsibleUserId")
+                    b.Property<long?>("ResponsibleUserId")
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("Surname")
@@ -140,7 +140,7 @@ namespace WebREST_EF_50.Migrations
                     b.Property<long?>("ProjectId")
                         .HasColumnType("INTEGER");
 
-                    b.Property<long>("ResponsibleUserId")
+                    b.Property<long?>("ResponsibleUserId")
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("Title")
@@ -215,7 +215,7 @@ namespace WebREST_EF_50.Migrations
                     b.Property<bool>("IsFinished")
                         .HasColumnType("INTEGER");
 
-                    b.Property<long>("ResponsibleUserId")
+                    b.Property<long?>("ResponsibleUserId")
                         .HasColumnType("INTEGER");
 
                     b.Property<DateTime>("StartDate")
@@ -278,10 +278,8 @@ namespace WebREST_EF_50.Migrations
                         .HasForeignKey("HqCompanyId");
 
                     b.HasOne("WebREST_EF_50.Models.User", "ResponsibleUser")
-                        .WithMany("Companies")
-                        .HasForeignKey("ResponsibleUserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .WithMany()
+                        .HasForeignKey("ResponsibleUserId");
 
                     b.Navigation("HqCompany");
 
@@ -310,10 +308,8 @@ namespace WebREST_EF_50.Migrations
                         .HasForeignKey("CompanyId");
 
                     b.HasOne("WebREST_EF_50.Models.User", "ResponsibleUser")
-                        .WithMany("Employees")
-                        .HasForeignKey("ResponsibleUserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .WithMany()
+                        .HasForeignKey("ResponsibleUserId");
 
                     b.Navigation("Company");
 
@@ -335,10 +331,8 @@ namespace WebREST_EF_50.Migrations
                         .HasForeignKey("ProjectId");
 
                     b.HasOne("WebREST_EF_50.Models.User", "ResponsibleUser")
-                        .WithMany("Objectives")
-                        .HasForeignKey("ResponsibleUserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .WithMany()
+                        .HasForeignKey("ResponsibleUserId");
 
                     b.Navigation("Company");
 
@@ -375,10 +369,8 @@ namespace WebREST_EF_50.Migrations
                         .HasForeignKey("EmployeeId");
 
                     b.HasOne("WebREST_EF_50.Models.User", "ResponsibleUser")
-                        .WithMany("Projects")
-                        .HasForeignKey("ResponsibleUserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .WithMany()
+                        .HasForeignKey("ResponsibleUserId");
 
                     b.Navigation("Company");
 
@@ -416,17 +408,9 @@ namespace WebREST_EF_50.Migrations
 
             modelBuilder.Entity("WebREST_EF_50.Models.User", b =>
                 {
-                    b.Navigation("Companies");
-
                     b.Navigation("Emails");
 
-                    b.Navigation("Employees");
-
-                    b.Navigation("Objectives");
-
                     b.Navigation("Phones");
-
-                    b.Navigation("Projects");
                 });
 #pragma warning restore 612, 618
         }

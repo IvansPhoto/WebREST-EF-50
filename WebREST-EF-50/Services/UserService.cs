@@ -27,10 +27,6 @@ namespace WebREST_EF_50.Services
             return await _dataContext.Users
                 .Include(u => u.Phones)
                 .Include(u => u.Emails)
-                .Include(u => u.Objectives)
-                .Include(u => u.Companies)
-                .Include(u => u.Employees)
-                .Include(u => u.Projects)
                 .FirstOrDefaultAsync(u => u.Id == id);
         }
 
@@ -39,9 +35,6 @@ namespace WebREST_EF_50.Services
             return await _dataContext.Users
                 .Include(u => u.Phones)
                 .Include(u => u.Emails)
-                .Include(u => u.Objectives)
-                .Include(u => u.Companies)
-                .Include(u => u.Employees)
                 .FirstOrDefaultAsync(u => u.Name.Contains(query) || u.Surname.Contains(query));
         }
 
@@ -58,10 +51,6 @@ namespace WebREST_EF_50.Services
             updatingUser.Surname = user.Surname;
             updatingUser.Phones = user.Phones;
             updatingUser.Emails = user.Emails;
-            updatingUser.Objectives = user.Objectives;
-            updatingUser.Companies = user.Companies;
-            updatingUser.Projects = user.Projects;
-            updatingUser.Employees = user.Employees;
             _dataContext.Users.Update(updatingUser);
             return await _dataContext.SaveChangesAsync();
         }
