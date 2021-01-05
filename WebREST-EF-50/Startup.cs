@@ -4,63 +4,62 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.EntityFrameworkCore;
+using Newtonsoft.Json;
 using WebREST_EF_50.Data;
 using WebREST_EF_50.Services;
 
 namespace WebREST_EF_50
 {
-	public class Startup
-	{
-		public Startup(IConfiguration configuration)
-		{
-			Configuration = configuration;
-		}
+    public class Startup
+    {
+        public Startup(IConfiguration configuration)
+        {
+            Configuration = configuration;
+        }
 
-		public IConfiguration Configuration { get; }
+        public IConfiguration Configuration { get; }
 
-		// This method gets called by the runtime. Use this method to add services to the container.
-		public void ConfigureServices(IServiceCollection services)
-		{
-			
-			services.AddDbContext<DataContext>(
-				x => x.UseSqlite(Configuration.GetConnectionString("SQLite"))
-				);
-			services.AddControllers();
-			
-			// To prevent cyclic references(?)
-			services.AddControllers().AddNewtonsoftJson();
-			services.AddControllersWithViews().AddNewtonsoftJson();
-			services.AddRazorPages().AddNewtonsoftJson();
-			
-			// Add Blazor
-			services.AddRazorPages();
-			services.AddServerSideBlazor();
-			
-			services.AddScoped<IUserService, UserService>();
-			services.AddScoped<IPhonesEmailService, PhonesEmailService>();
-		}
+        // This method gets called by the runtime. Use this method to add services to the container.
+        public void ConfigureServices(IServiceCollection services)
+        {
+            services.AddDbContext<DataContext>(
+                x => x.UseSqlite(Configuration.GetConnectionString("SQLite"))
+            );
+            services.AddControllers();
 
-		// This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-		public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
-		{
-			if (env.IsDevelopment())
-			{
-				app.UseDeveloperExceptionPage();
-			}
+            // To prevent cyclic references(?)
+            services.AddControllers().AddNewtonsoftJson(options => options.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore);
+            services.AddControllersWithViews().AddNewtonsoftJson(options => options.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore);
+            services.AddRazorPages().AddNewtonsoftJson(options => options.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore);
 
-			app.UseHttpsRedirection();
-			app.UseStaticFiles();
+            // Add Blazor
+            services.AddRazorPages();
+            services.AddServerSideBlazor();
 
-			app.UseRouting();
+            services.AddScoped<IUserService, UserService>();
+            services.AddScoped<IPhonesEmailService, PhonesEmailService>();
+        }
 
-			app.UseAuthorization();
+        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        {
+            if (env.IsDevelopment())
+            {
+                app.UseDeveloperExceptionPage();
+            }
 
-			app.UseEndpoints(endpoints =>
-			{
-				endpoints.MapControllers();
-				endpoints.MapFallbackToPage("/_Host");
-			});
+            app.UseHttpsRedirection();
+            app.UseStaticFiles();
 
-		}
-	}
+            app.UseRouting();
+
+            app.UseAuthorization();
+
+            app.UseEndpoints(endpoints =>
+            {
+                endpoints.MapControllers();
+                endpoints.MapFallbackToPage("/_Host");
+            });
+        }
+    }
 }
