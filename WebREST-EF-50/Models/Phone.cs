@@ -11,10 +11,10 @@ namespace WebREST_EF_50.Models
 		public string PhoneNumber { get; set; }
 		
 		public ContactType Type { get; set; } = ContactType.Unknown;
-		public User? User { get; set; }
-		public Company? Company { get; set; }
-		public Employee? Employee { get; set; }
-		
+		// public User? User { get; set; }
+		// public Company? Company { get; set; }
+		// public Employee? Employee { get; set; }
+		//
 		public Phone(string phoneNumber)
 		{
 			PhoneNumber = phoneNumber;

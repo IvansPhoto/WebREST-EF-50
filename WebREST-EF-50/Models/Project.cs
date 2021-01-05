@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Text.Json.Serialization;
 
@@ -18,6 +19,7 @@ namespace WebREST_EF_50.Models
 		public bool IsFinished { get; set; } = false;
 		public DateTime StartDate { get; set; } = new();
 		public DateTime FinishDate { get; set; } = new();
+		public List<Objective> Objectives { get; set; } = new(); 
 		public Company? Company { get; set; }
 		public Employee? Employee { get; set; }
 
