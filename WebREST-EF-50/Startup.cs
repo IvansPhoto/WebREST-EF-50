@@ -7,6 +7,8 @@ using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
 using WebREST_EF_50.Data;
 using WebREST_EF_50.Services;
+using WebREST_EF_50.Services.PhonesEmails;
+using WebREST_EF_50.Services.Users;
 
 namespace WebREST_EF_50
 {

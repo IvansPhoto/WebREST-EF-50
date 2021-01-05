@@ -1,11 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using WebREST_EF_50.Data;
 using WebREST_EF_50.Models;
 
-namespace WebREST_EF_50.Services
+namespace WebREST_EF_50.Services.Users
 {
     public class UserService : IUserService
     {
@@ -24,7 +23,7 @@ namespace WebREST_EF_50.Services
                 .ToListAsync();
         }
 
-        public async Task<User> GetOneUser(int id)
+        public async Task<User> GetOUserById(int id)
         {
             // Single vs. split queries.
             // https://docs.microsoft.com/en-us/ef/core/querying/related-data/eager#single-and-split-queries
@@ -35,7 +34,7 @@ namespace WebREST_EF_50.Services
                 .FirstOrDefaultAsync(u => u.Id == id);
         }
 
-        public async Task<User> FindUser(string query)
+        public async Task<User> FindOneUserById(string query)
         {
             return await _dataContext.Users
                 .Include(u => u.Phones)
@@ -43,19 +42,18 @@ namespace WebREST_EF_50.Services
                 .FirstOrDefaultAsync(u => u.Name.Contains(query) || u.Surname.Contains(query));
         }
 
-        public async Task<User> PostOneUser(User user)
+        public async Task<User?> PostOneUser(User user)
         {
             var newUser = await _dataContext.Users.AddAsync(user);
-            await _dataContext.SaveChangesAsync();
-            return newUser.Entity;
-
+            var rows = await _dataContext.SaveChangesAsync();
+            return rows == 0 ? null : newUser.Entity;
         }
 
-        public async Task<User> UpdateOneUser(User user)
+        public async Task<User?> UpdateOneUser(User user)
         {
             var updatedUser = _dataContext.Users.Update(user);
-            await _dataContext.SaveChangesAsync();
-            return updatedUser.Entity;
+            var rows = await _dataContext.SaveChangesAsync();
+            return rows == 0 ? null : updatedUser.Entity;
         }
 
         public async Task<int> DeleteOneUser(int id)

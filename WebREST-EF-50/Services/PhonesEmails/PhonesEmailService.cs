@@ -2,11 +2,10 @@
 using System.Data.Entity;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.EntityFrameworkCore;
 using WebREST_EF_50.Data;
 using WebREST_EF_50.Models;
 
-namespace WebREST_EF_50.Services
+namespace WebREST_EF_50.Services.PhonesEmails
 {
     public class PhonesEmailService : IPhonesEmailService
     {
@@ -17,21 +16,24 @@ namespace WebREST_EF_50.Services
             _dataContext = dataContext;
         }
 
+        // Phones
         public async Task<Phone> GetOnePhone(int id)
         {
             return await _dataContext.Phones.FirstOrDefaultAsync((phone) => phone.Id == id);
         }
 
-        public async Task<int> AddPhone(Phone phone)
+        public async Task<Phone?> AddPhone(Phone phone)
         {
-            await _dataContext.Phones.AddAsync(phone);
-            return await _dataContext.SaveChangesAsync();
+            var newPhone = await _dataContext.Phones.AddAsync(phone);
+            var rows = await _dataContext.SaveChangesAsync(); 
+            return rows == 0 ? null : newPhone.Entity;
         }
 
-        public async Task<int> UpdatePhone(Phone phone)
+        public async Task<Phone?> UpdatePhone(Phone phone)
         {
-            _dataContext.Phones.Update(phone);
-            return await _dataContext.SaveChangesAsync();
+            var updatedEmail = _dataContext.Phones.Update(phone);
+            var rows = await _dataContext.SaveChangesAsync(); 
+            return rows == 0 ? null : updatedEmail.Entity;
         }
 
         public async Task<int> DeletePhone(int id)
@@ -52,6 +54,7 @@ namespace WebREST_EF_50.Services
 
 
 
+        // Emails
         public async Task<Email> GetOneEmail(int id)
         {
             return await _dataContext.Emails.FirstOrDefaultAsync(email => email.Id == id);

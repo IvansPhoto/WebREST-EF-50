@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 using WebREST_EF_50.Assistants;
 using WebREST_EF_50.Models;
 using WebREST_EF_50.Services;
+using WebREST_EF_50.Services.Users;
 
 namespace WebREST_EF_50.Controllers
 {
@@ -30,7 +31,7 @@ namespace WebREST_EF_50.Controllers
         [HttpGet("{userId}")]
         public async Task<IActionResult> GetOneUser(int userId)
         {
-            var user = await _userService.GetOneUser(userId);
+            var user = await _userService.GetOUserById(userId);
             if (user == null) return NotFound();
             return Ok(user);
         }
@@ -38,7 +39,7 @@ namespace WebREST_EF_50.Controllers
         [HttpGet("find/{query}")]
         public async Task<IActionResult> FindUser(string query)
         {
-            var user = await _userService.FindUser(query);
+            var user = await _userService.FindOneUserById(query);
             if (user == null) return NotFound();
             return Ok(user);
         }

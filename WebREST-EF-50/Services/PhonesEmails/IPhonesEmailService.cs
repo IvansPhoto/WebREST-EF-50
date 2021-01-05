@@ -2,13 +2,13 @@
 using System.Threading.Tasks;
 using WebREST_EF_50.Models;
 
-namespace WebREST_EF_50.Services
+namespace WebREST_EF_50.Services.PhonesEmails
 {
     public interface IPhonesEmailService
     {
         public Task<Phone> GetOnePhone(int id);
-        public Task<int> AddPhone(Phone phone);
-        public Task<int> UpdatePhone(Phone phone);
+        public Task<Phone?> AddPhone(Phone phone);
+        public Task<Phone?> UpdatePhone(Phone phone);
         public Task<int> DeletePhone(int id);
         public Task<List<Phone>> GetAllPhones(int skip, int perPage);
         

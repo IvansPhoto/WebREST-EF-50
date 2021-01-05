@@ -5,11 +5,11 @@ using Microsoft.EntityFrameworkCore;
 using WebREST_EF_50.Data;
 using WebREST_EF_50.Models;
 
-namespace WebREST_EF_50.Services
+namespace WebREST_EF_50.Services.Objectives
 {
     public class ObjectiveService : IObjectiveService
     {
-        private DataContext _dataContext;
+        private readonly DataContext _dataContext;
 
         public ObjectiveService(DataContext dataContext)
         {
@@ -39,24 +39,24 @@ namespace WebREST_EF_50.Services
                 .ToListAsync();
         }
 
-        public async Task<Objective> GetOneObjective(int id)
+        public async Task<Objective> GetOneObjectiveById(int id)
         {
             return await _dataContext.Objectives.FirstOrDefaultAsync(objective => objective.Id == id);
         }
 
-        public async Task<Objective> PostOneObjective(Objective objective)
+        public async Task<Objective?> PostOneObjective(Objective objective)
         {
             // TODO: Check the correctness returning Objective
             var newObj = await _dataContext.Objectives.AddAsync(objective);
-            await _dataContext.SaveChangesAsync();
-            return newObj.Entity;
+            var rows = await _dataContext.SaveChangesAsync();
+            return rows == 0 ? null : newObj.Entity;
         }
 
-        public async Task<Objective> UpdateOneObjective(Objective objective)
+        public async Task<Objective?> UpdateOneObjective(Objective objective)
         {
             var updatedObj = _dataContext.Objectives.Update(objective);
-            await _dataContext.SaveChangesAsync();
-            return updatedObj.Entity;
+            var rows = await _dataContext.SaveChangesAsync();
+            return rows == 0 ? null : updatedObj.Entity;
         }
 
         public async Task<int> DeleteOneObjective(int id)
