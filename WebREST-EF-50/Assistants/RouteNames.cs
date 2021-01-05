@@ -4,5 +4,6 @@
 	{
 		public const string ObjectiveRoute = "api/obj/";
 		public const string UserRoute = "api/user/";
+		public const string PhoneEmailRoute = "api/phone-email/";
 	}
 }

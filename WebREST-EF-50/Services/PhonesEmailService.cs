@@ -2,6 +2,7 @@
 using System.Data.Entity;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 using WebREST_EF_50.Data;
 using WebREST_EF_50.Models;
 
@@ -33,42 +34,63 @@ namespace WebREST_EF_50.Services
 
         public async Task<int> UpdatePhone(Phone phone)
         {
-            throw new System.NotImplementedException();
+            _dataContext.Phones.Update(phone);
+            return await _dataContext.SaveChangesAsync();
         }
 
         public async Task<int> DeletePhones(int id)
         {
-            throw new System.NotImplementedException();
+            Phone phone = await _dataContext.Phones.FirstOrDefaultAsync(ph => ph.Id == id);
+            _dataContext.Phones.Remove(phone);
+            return await _dataContext.SaveChangesAsync();
         }
 
-        public async Task<List<Phone>> GetAllPhones()
+        public async Task<List<Phone>> GetAllPhones(int skip, int perPage)
         {
-            return await _dataContext.Phones.ToListAsync();
+            // Set limits
+            return await _dataContext.Phones
+                .Skip(skip)
+                .Take(perPage)
+                .ToListAsync();
         }
+
+
 
         public async Task<List<Email>> GetEmails(int id)
         {
-            throw new System.NotImplementedException();
+            return await _dataContext.Emails
+                .Where(email => 
+                    email.Company != null && email.Company.Id == id || 
+                    email.Employee != null && email.Employee.Id == id || 
+                    email.User != null && email.User.Id == id)
+                .ToListAsync();
         }
 
         public async Task<int> AddEmails(Email email)
         {
-            throw new System.NotImplementedException();
+            await _dataContext.Emails.AddAsync(email);
+            return await _dataContext.SaveChangesAsync();
         }
 
         public async Task<int> UpdateEmails(Email email)
         {
-            throw new System.NotImplementedException();
+            _dataContext.Emails.Update(email);
+            return await _dataContext.SaveChangesAsync();
         }
 
         public async Task<int> DeleteEmails(int id)
         {
-            throw new System.NotImplementedException();
+            Email email = await _dataContext.Emails.FirstOrDefaultAsync(email1 => email1.Id == id);
+            _dataContext.Emails.Remove(email);
+            return await _dataContext.SaveChangesAsync();
         }
 
-        public async Task<List<Email>> GetAllEmails()
+        public async Task<List<Email>> GetAllEmails(int skip, int perPage)
         {
-            return await _dataContext.Emails.ToListAsync();
+            return await _dataContext.Emails
+                .Skip(skip)
+                .Take(perPage)
+                .ToListAsync();
         }
     }
 }
