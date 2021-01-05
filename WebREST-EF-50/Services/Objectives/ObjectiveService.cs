@@ -27,15 +27,18 @@ namespace WebREST_EF_50.Services.Objectives
                 .ToListAsync();
         }
 
-        public async Task<List<Objective>> GetRelatedObjectives(int id, int skipRecords, int perPage)
+        public async Task<List<Objective>> GetRelatedObjectives(
+            int skipRecords, int perPage, int userId = 0, int companyId = 0, int employeeId = 0, int projectId = 0
+        )
         {
             return await _dataContext.Objectives
                 .Skip(skipRecords)
                 .Take(perPage)
                 .Where(objective =>
-                    objective.Company != null && objective.Company.Id == id ||
-                    objective.Employee != null && objective.Employee.Id == id ||
-                    objective.Project != null && objective.Project.Id == id)
+                    objective.Company != null && objective.Company.Id == companyId ||
+                    objective.Employee != null && objective.Employee.Id == employeeId ||
+                    objective.Project != null && objective.Project.Id == projectId ||
+                    objective.ResponsibleUser.Id == userId)
                 .ToListAsync();
         }
 

@@ -16,12 +16,12 @@ namespace WebREST_EF_50.Services.Companies
             _dataContext = dataContext;
         }
 
-        public async Task<List<Company>> GetCompaniesById(int id, int skipRecords, int perPage)
+        public async Task<List<Company>> GetCompaniesForUser(int skipRecords, int perPage, int useId = 0)
         {
             return await _dataContext.Company
                 .Skip(skipRecords)
                 .Take(perPage)
-                .Where(company => company.ResponsibleUser.Id == id)
+                .Where(company => company.ResponsibleUser.Id == useId)
                 .Include(company => company.Phones)
                 .Include(company => company.Emails)
                 .Include(company => company.Objectives)
