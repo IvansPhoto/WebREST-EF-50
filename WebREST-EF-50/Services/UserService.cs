@@ -17,7 +17,10 @@ namespace WebREST_EF_50.Services
 
         public async Task<List<User>> GetUsers()
         {
-            return await _dataContext.Users.ToListAsync();
+            return await _dataContext.Users
+                .Include(u => u.Phones)
+                .Include(u => u.Emails)
+                .ToListAsync();
         }
 
         public async Task<User> GetOneUser(int id)
