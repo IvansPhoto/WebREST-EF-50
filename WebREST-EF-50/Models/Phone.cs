@@ -14,7 +14,7 @@ namespace WebREST_EF_50.Models
 		// public User? User { get; set; }
 		// public Company? Company { get; set; }
 		// public Employee? Employee { get; set; }
-		//
+		
 		public Phone(string phoneNumber)
 		{
 			PhoneNumber = phoneNumber;

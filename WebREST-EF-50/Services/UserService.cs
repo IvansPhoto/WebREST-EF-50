@@ -1,9 +1,6 @@
 ﻿using System.Collections.Generic;
-using System.Threading;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using WebREST_EF_50.Assistants;
 using WebREST_EF_50.Data;
 using WebREST_EF_50.Models;
 

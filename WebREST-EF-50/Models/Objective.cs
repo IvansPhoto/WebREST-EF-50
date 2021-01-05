@@ -9,15 +9,17 @@ namespace WebREST_EF_50.Models
 		public long Id { get; set; }
 
 		[Required]
-		public User ResponsibleUser { get; set; }
-		
-		[Required]
 		public string Title { get; set; }
+
+		[Required]
+		public User ResponsibleUser { get; set; }
+
 		public string Description { get; set; } = string.Empty;
 		public ObjType ObjectType { get; set; } = ObjType.Call;
 		public bool IsFinished { get; set; } = false;
 		public DateTime CreateDate { get; set; } = new();
 		public DateTime FinishDate { get; set; } = new();
+		
 		public Company? Company { get; set; }
 		public Employee? Employee { get; set; }
 		public Project? Project { get; set; }
@@ -35,14 +37,6 @@ namespace WebREST_EF_50.Models
 		public Objective(string title)
 		{
 			Title = title;
-		}
-
-		public Objective(string title, User responsibleUser, DateTime finishDate, DateTime createDate = new())
-		{
-			Title = title;
-			ResponsibleUser = responsibleUser;
-			CreateDate = createDate;
-			FinishDate = finishDate;
 		}
 	}
 }

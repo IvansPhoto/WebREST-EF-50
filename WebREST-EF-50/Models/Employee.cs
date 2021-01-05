@@ -16,8 +16,10 @@ namespace WebREST_EF_50.Models
 		[Required]
 		public User ResponsibleUser { get; set; }
 		public string Surname { get; set; } = string.Empty;
-		public List<Phone> Phones { get; set; } = new List<Phone>();
-		public List<Email> Emails { get; set; } = new List<Email>();
+		public List<Phone> Phones { get; set; } = new();
+		public List<Email> Emails { get; set; } = new();
+		public List<Objective> Objectives { get; set; } = new();
+		
 		public Company? Company { get; set; }
 		
 		public Employee(string name)
