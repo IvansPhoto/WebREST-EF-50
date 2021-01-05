@@ -13,8 +13,8 @@ namespace WebREST_EF_50.Services
         public Task<List<Phone>> GetAllPhones(int skip, int perPage);
         
         public Task<Email> GetOneEmail(int id);
-        public Task<int> AddEmail(Email email);
-        public Task<int> UpdateEmail(Email email);
+        public Task<Email?> AddEmail(Email email);
+        public Task<Email?> UpdateEmail(Email email);
         public Task<int> DeleteEmail(int id);
         public Task<List<Email>> GetAllEmails(int skip, int perPage);
     }

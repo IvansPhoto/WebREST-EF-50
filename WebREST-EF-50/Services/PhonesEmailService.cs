@@ -57,16 +57,18 @@ namespace WebREST_EF_50.Services
             return await _dataContext.Emails.FirstOrDefaultAsync(email => email.Id == id);
         }
 
-        public async Task<int> AddEmail(Email email)
+        public async Task<Email?> AddEmail(Email email)
         {
-            await _dataContext.Emails.AddAsync(email);
-            return await _dataContext.SaveChangesAsync();
+            var newEmail = await _dataContext.Emails.AddAsync(email);
+            var rows = await _dataContext.SaveChangesAsync();
+            return rows == 0 ? null : newEmail.Entity;
         }
 
-        public async Task<int> UpdateEmail(Email email)
+        public async Task<Email?> UpdateEmail(Email email)
         {
-            _dataContext.Emails.Update(email);
-            return await _dataContext.SaveChangesAsync();
+            var updatedEmail = _dataContext.Emails.Update(email);
+            var rows = await _dataContext.SaveChangesAsync();
+            return rows == 0 ? null : updatedEmail.Entity;
         }
 
         public async Task<int> DeleteEmail(int id)

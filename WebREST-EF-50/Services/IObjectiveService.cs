@@ -6,8 +6,8 @@ namespace WebREST_EF_50.Services
 {
 	public interface IObjectiveService
 	{
-		public Task<List<Objective>> GetAllObjectives(int limit, string query);
-		public Task<List<Objective>> GetAllObjectivesById(int id, int limit, string query);
+		public Task<List<Objective>> GetAllObjectives(string query, int skipRecords, int perPage);
+		public Task<List<Objective>> GetRelatedObjectives(int id, int skipRecords, int perPage);
 		public Task<Objective> GetOneObjective(int id);
 		public Task<Objective> PostOneObjective(Objective objective);
 		public Task<Objective> UpdateOneObjective(Objective objective);

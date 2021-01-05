@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using WebREST_EF_50.Data;
@@ -25,8 +26,9 @@ namespace WebREST_EF_50.Services
 
         public async Task<User> GetOneUser(int id)
         {
-            //Single vs. split queries.
-            //https://docs.microsoft.com/en-us/ef/core/querying/related-data/eager#single-and-split-queries
+            // Single vs. split queries.
+            // https://docs.microsoft.com/en-us/ef/core/querying/related-data/eager#single-and-split-queries
+            // https://go.microsoft.com/fwlink/?linkid=2134277
             return await _dataContext.Users
                 .Include(u => u.Phones)
                 .Include(u => u.Emails)
@@ -41,21 +43,19 @@ namespace WebREST_EF_50.Services
                 .FirstOrDefaultAsync(u => u.Name.Contains(query) || u.Surname.Contains(query));
         }
 
-        public async Task<int> PostOneUser(User user)
+        public async Task<User> PostOneUser(User user)
         {
-            await _dataContext.Users.AddAsync(user);
-            return await _dataContext.SaveChangesAsync();
+            var newUser = await _dataContext.Users.AddAsync(user);
+            await _dataContext.SaveChangesAsync();
+            return newUser.Entity;
+
         }
 
-        public async Task<int> UpdateOneUser(User user)
+        public async Task<User> UpdateOneUser(User user)
         {
-            User updatingUser = await _dataContext.Users.FirstOrDefaultAsync(u => u.Id == user.Id);
-            updatingUser.Name = user.Name;
-            updatingUser.Surname = user.Surname;
-            updatingUser.Phones = user.Phones;
-            updatingUser.Emails = user.Emails;
-            _dataContext.Users.Update(updatingUser);
-            return await _dataContext.SaveChangesAsync();
+            var updatedUser = _dataContext.Users.Update(user);
+            await _dataContext.SaveChangesAsync();
+            return updatedUser.Entity;
         }
 
         public async Task<int> DeleteOneUser(int id)
