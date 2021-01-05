@@ -1,6 +1,6 @@
 using System;
 
-namespace BalzorCRM_EF.Data
+namespace WebREST_EF_50.Data
 {
 	public class WeatherForecast
 	{

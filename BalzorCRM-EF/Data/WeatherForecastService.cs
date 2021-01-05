@@ -2,7 +2,7 @@ using System;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace BalzorCRM_EF.Data
+namespace WebREST_EF_50.Data
 {
 	public class WeatherForecastService
 	{

@@ -26,10 +26,15 @@ namespace WebREST_EF_50
 				x => x.UseSqlite(Configuration.GetConnectionString("SQLite"))
 				);
 			services.AddControllers();
-			//To prevent cycling
+			
+			// To prevent cyclic references(?)
 			services.AddControllers().AddNewtonsoftJson();
 			services.AddControllersWithViews().AddNewtonsoftJson();
 			services.AddRazorPages().AddNewtonsoftJson();
+			
+			// Add Blazor
+			services.AddRazorPages();
+			services.AddServerSideBlazor();
 			
 			services.AddScoped<IUserService, UserService>();
 			services.AddScoped<IPhonesEmailService, PhonesEmailService>();
@@ -38,21 +43,23 @@ namespace WebREST_EF_50
 		// This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
 		public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
 		{
-			// app.UseDeveloperExceptionPage();
-			
-			
 			if (env.IsDevelopment())
 			{
 				app.UseDeveloperExceptionPage();
 			}
 
 			app.UseHttpsRedirection();
+			app.UseStaticFiles();
 
 			app.UseRouting();
 
 			app.UseAuthorization();
 
-			app.UseEndpoints(endpoints => { endpoints.MapControllers(); });
+			app.UseEndpoints(endpoints =>
+			{
+				endpoints.MapControllers();
+				endpoints.MapFallbackToPage("/_Host");
+			});
 
 		}
 	}

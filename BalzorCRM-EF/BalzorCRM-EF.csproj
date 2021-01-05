@@ -2,7 +2,7 @@
 
     <PropertyGroup>
         <TargetFramework>net5.0</TargetFramework>
-        <RootNamespace>BalzorCRM_EF</RootNamespace>
+        <RootNamespace>WebREST_EF_50</RootNamespace>
     </PropertyGroup>
 
     <ItemGroup>
