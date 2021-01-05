@@ -19,7 +19,7 @@ namespace WebREST_EF_50.Controllers
         [HttpGet("{id}")]
         public async Task<IActionResult> GetPhones([FromRoute] int id)
         {
-            return Ok(await _phonesEmailService.GetPhones(id));
+            return Ok(await _phonesEmailService.GetOnePhone(id));
         }
     }
 }

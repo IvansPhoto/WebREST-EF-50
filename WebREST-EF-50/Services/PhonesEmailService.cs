@@ -17,13 +17,9 @@ namespace WebREST_EF_50.Services
             _dataContext = dataContext;
         }
 
-        public async Task<List<Phone>> GetPhones(int id)
+        public async Task<Phone> GetOnePhone(int id)
         {
-            return await _dataContext.Phones
-                .Where((phone) => phone.Company != null && phone.Company.Id == id ||
-                                  phone.Employee != null && phone.Employee.Id == id ||
-                                  phone.User != null && phone.User.Id == id)
-                .ToListAsync();
+            return await _dataContext.Phones.FirstOrDefaultAsync((phone) => phone.Id == id);
         }
 
         public async Task<int> AddPhone(Phone phone)
@@ -38,7 +34,7 @@ namespace WebREST_EF_50.Services
             return await _dataContext.SaveChangesAsync();
         }
 
-        public async Task<int> DeletePhones(int id)
+        public async Task<int> DeletePhone(int id)
         {
             Phone phone = await _dataContext.Phones.FirstOrDefaultAsync(ph => ph.Id == id);
             _dataContext.Phones.Remove(phone);
@@ -56,29 +52,24 @@ namespace WebREST_EF_50.Services
 
 
 
-        public async Task<List<Email>> GetEmails(int id)
+        public async Task<Email> GetOneEmail(int id)
         {
-            return await _dataContext.Emails
-                .Where(email => 
-                    email.Company != null && email.Company.Id == id || 
-                    email.Employee != null && email.Employee.Id == id || 
-                    email.User != null && email.User.Id == id)
-                .ToListAsync();
+            return await _dataContext.Emails.FirstOrDefaultAsync(email => email.Id == id);
         }
 
-        public async Task<int> AddEmails(Email email)
+        public async Task<int> AddEmail(Email email)
         {
             await _dataContext.Emails.AddAsync(email);
             return await _dataContext.SaveChangesAsync();
         }
 
-        public async Task<int> UpdateEmails(Email email)
+        public async Task<int> UpdateEmail(Email email)
         {
             _dataContext.Emails.Update(email);
             return await _dataContext.SaveChangesAsync();
         }
 
-        public async Task<int> DeleteEmails(int id)
+        public async Task<int> DeleteEmail(int id)
         {
             Email email = await _dataContext.Emails.FirstOrDefaultAsync(email1 => email1.Id == id);
             _dataContext.Emails.Remove(email);

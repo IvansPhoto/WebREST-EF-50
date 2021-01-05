@@ -1,40 +1,47 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
+using WebREST_EF_50.Data;
 using WebREST_EF_50.Models;
 
 namespace WebREST_EF_50.Services
 {
-	public class ObjectiveService : IObjectiveService
-	{
-		public async Task<List<Objective>> GetObjectives(int limit, string query)
-		{
-			var obj = new Objective(title: "First objective")
-			{
-				ResponsibleUser = new User(name: "Jan", surname: "Miller"),
-				Description = "A call"
-			};
-			var objList = new List<Objective>() {obj};
-			return objList;
-		}
+    public class ObjectiveService : IObjectiveService
+    {
+        private DataContext _dataContext;
 
-		public Task<List<Objective>> GetOneObjective(int id)
-		{
-			throw new System.NotImplementedException();
-		}
+        public ObjectiveService(DataContext dataContext)
+        {
+            _dataContext = dataContext;
+        }
 
-		public Task<Objective> PostOneObjective(Objective objective)
-		{
-			throw new System.NotImplementedException();
-		}
+        public async Task<List<Objective>> GetAllObjectives(int limit, string query)
+        {
+            throw new System.NotImplementedException();
+        }
 
-		public Task<List<Objective>> UpdateOneObjective(Objective objective)
-		{
-			throw new System.NotImplementedException();
-		}
+        public Task<List<Objective>> GetAllObjectivesById(int id, int limit, string query)
+        {
+            throw new System.NotImplementedException();
+        }
 
-		public Task<bool> DeleteOneObjective(int id)
-		{
-			throw new System.NotImplementedException();
-		}
-	}
+        public Task<Objective> GetOneObjective(int id)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public Task<Objective> PostOneObjective(Objective objective)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public Task<Objective> UpdateOneObjective(Objective objective)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public Task<int> DeleteOneObjective(int id)
+        {
+            throw new System.NotImplementedException();
+        }
+    }
 }
