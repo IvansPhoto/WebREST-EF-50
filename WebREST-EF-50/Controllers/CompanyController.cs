@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using WebREST_EF_50.Assistants;
 using WebREST_EF_50.Models;
@@ -18,11 +19,11 @@ namespace WebREST_EF_50.Controllers
         }
 
         [HttpGet("user/{userId}")]
-        public async Task<IActionResult> GetCompanyOfUser(int skip, int perPage, int userId)
+        public async Task<IActionResult> GetCompanyOfUser(int userId, int skip, int perPage)
         {
             if (skip < 0 || perPage < 1 || userId < 1) return BadRequest();
             var companies = await _companyService
-                .GetCompaniesForUser(perPage: perPage, skipRecords: skip, useId: userId);
+                .GetCompaniesForUser(userId: userId, perPage: perPage, skipRecords: skip);
             return companies.Count == 0 ? NotFound() : Ok(companies);
         }
 

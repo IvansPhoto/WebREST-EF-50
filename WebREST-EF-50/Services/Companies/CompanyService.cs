@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
@@ -16,12 +17,14 @@ namespace WebREST_EF_50.Services.Companies
             _dataContext = dataContext;
         }
 
-        public async Task<List<Company>> GetCompaniesForUser(int skipRecords, int perPage, int useId = 0)
+        public async Task<List<Company>> GetCompaniesForUser(int skipRecords, int perPage, int userId)
         {
+            // Console.WriteLine($"skipRecords: {skipRecords}, perPage:{perPage}, userId:{userId}");
             return await _dataContext.Company
+                .OrderBy(company => company.Id)
                 .Skip(skipRecords)
                 .Take(perPage)
-                .Where(company => company.ResponsibleUser.Id == useId)
+                .Where(company => company.ResponsibleUser.Id == userId)
                 .Include(company => company.Phones)
                 .Include(company => company.Emails)
                 .Include(company => company.Objectives)
@@ -35,6 +38,7 @@ namespace WebREST_EF_50.Services.Companies
         public async Task<List<Company>> GetAllCompanies(int skipRecords, int perPage)
         {
             return await _dataContext.Company
+                .OrderBy(company => company.Id)
                 .Skip(skipRecords)
                 .Take(perPage)
                 .Include(company => company.Phones)

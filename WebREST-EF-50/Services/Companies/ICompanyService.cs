@@ -6,7 +6,7 @@ namespace WebREST_EF_50.Services.Companies
 {
     public interface ICompanyService
     {
-        public Task<List<Company>> GetCompaniesForUser(int useId, int skipRecords, int perPage);
+        public Task<List<Company>> GetCompaniesForUser(int skipRecords, int perPage, int userId);
         public Task<List<Company>> GetAllCompanies(int skipRecords, int perPage);
         public Task<Company?> GetOneCompany(int id);
         public Task<Company?> AddCompany(Company company);

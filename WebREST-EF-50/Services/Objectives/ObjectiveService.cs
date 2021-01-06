@@ -21,6 +21,7 @@ namespace WebREST_EF_50.Services.Objectives
             return await _dataContext.Objectives
                 .Skip(skipRecords)
                 .Take(perPage)
+                .OrderBy(objective => objective.Id)
                 .Where(objective =>
                     objective.Description.Contains(query) ||
                     objective.Title.Contains(query))
@@ -34,6 +35,7 @@ namespace WebREST_EF_50.Services.Objectives
             return await _dataContext.Objectives
                 .Skip(skipRecords)
                 .Take(perPage)
+                .OrderBy(objective => objective.Id)
                 .Where(objective =>
                     objective.Company != null && objective.Company.Id == companyId ||
                     objective.Employee != null && objective.Employee.Id == employeeId ||
