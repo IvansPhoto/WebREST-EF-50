@@ -25,7 +25,7 @@ namespace WebREST_EF_50.Services.Users
 
         public async Task<User> GetOUserById(int id)
         {
-            // Single vs. split queries.
+            // TODO: Single vs. split queries.
             // https://docs.microsoft.com/en-us/ef/core/querying/related-data/eager#single-and-split-queries
             // https://go.microsoft.com/fwlink/?linkid=2134277
             return await _dataContext.Users
