@@ -1,10 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using WebREST_EF_50.Assistants;
 using WebREST_EF_50.Models;
-using WebREST_EF_50.Services;
 using WebREST_EF_50.Services.Users;
 
 namespace WebREST_EF_50.Controllers
@@ -31,6 +29,7 @@ namespace WebREST_EF_50.Controllers
         [HttpGet("{userId}")]
         public async Task<IActionResult> GetOneUser(int userId)
         {
+            if (userId < 1) return BadRequest();
             var user = await _userService.GetOUserById(userId);
             if (user == null) return NotFound();
             return Ok(user);
@@ -39,6 +38,7 @@ namespace WebREST_EF_50.Controllers
         [HttpGet("find/{query}")]
         public async Task<IActionResult> FindUser(string query)
         {
+            if (query.Length == 0) return BadRequest();
             var user = await _userService.FindOneUserById(query);
             if (user == null) return NotFound();
             return Ok(user);
@@ -48,7 +48,6 @@ namespace WebREST_EF_50.Controllers
         [Consumes("application/json")]
         public async Task<IActionResult> PostOneUser([FromBody] User user)
         {
-            Console.WriteLine(user);
             return Ok(await _userService.PostOneUser(user));
         }
 
@@ -62,6 +61,7 @@ namespace WebREST_EF_50.Controllers
         [HttpDelete("delete/{userId}")]
         public async Task<IActionResult> DeleteOneUser([FromRoute] int userId)
         {
+            if (userId < 1) return BadRequest();
             return Ok(await _userService.DeleteOneUser(userId));
         }
     }

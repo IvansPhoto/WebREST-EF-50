@@ -47,7 +47,7 @@ namespace WebREST_EF_50.Services.Companies
                 .ToListAsync();
         }
 
-        public async Task<Company> GetOneCompany(int id)
+        public async Task<Company?> GetOneCompany(int id)
         {
             return await _dataContext.Company
                 .Include(company => company.Phones)
