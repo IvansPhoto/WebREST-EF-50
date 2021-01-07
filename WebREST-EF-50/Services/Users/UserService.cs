@@ -15,51 +15,51 @@ namespace WebREST_EF_50.Services.Users
 			_dataContext = dataContext;
 		}
 
-		public async Task<List<User.Full>> GetUsers()
+		public async Task<List<IUserFull>> GetUsers()
 		{
-			return await _dataContext.UsersFull
+			return await _dataContext.Users
 				.Include(u => u.Phones)
 				.Include(u => u.Emails)
 				.ToListAsync();
 		}
 
-		public async Task<User.Full> GetOUserById(int id)
+		public async Task<IUserFull> GetOUserById(int id)
 		{
 			// TODO: Single vs. split queries.
 			// https://docs.microsoft.com/en-us/ef/core/querying/related-data/eager#single-and-split-queries
 			// https://go.microsoft.com/fwlink/?linkid=2134277
-			return await _dataContext.UsersFull
+			return await _dataContext.Users
 				.Include(u => u.Phones)
 				.Include(u => u.Emails)
 				.FirstOrDefaultAsync(u => u.Id == id);
 		}
 
-		public async Task<User.Full> FindOneUserById(string query)
+		public async Task<IUserFull> FindOneUserById(string query)
 		{
-			return await _dataContext.UsersFull
+			return await _dataContext.Users
 				.Include(u => u.Phones)
 				.Include(u => u.Emails)
 				.FirstOrDefaultAsync(u => u.Name.Contains(query) || u.Surname.Contains(query));
 		}
 
-		public async Task<User.Full?> PostOneUser(User user)
+		public async Task<IUserFull?> PostOneUser(IUserBase user)
 		{
-			var newUser = await _dataContext.UsersFull.AddAsync(new User.Full(user));
+			var newUser = await _dataContext.Users.AddAsync(new UserFull(user));
 			var rows = await _dataContext.SaveChangesAsync();
 			return rows == 0 ? null : newUser.Entity;
 		}
 
-		public async Task<User.Full?> UpdateOneUser(User user)
+		public async Task<IUserFull?> UpdateOneUser(IUserBase user)
 		{
-			var updatedUser = _dataContext.UsersFull.Update(new User.Full(user));
+			var updatedUser = _dataContext.Users.Update(new UserFull(user));
 			var rows = await _dataContext.SaveChangesAsync();
 			return rows == 0 ? null : updatedUser.Entity;
 		}
 
 		public async Task<int> DeleteOneUser(int id)
 		{
-			_dataContext.UsersFull.Remove(
-				await _dataContext.UsersFull.FirstOrDefaultAsync(u => u.Id == id)
+			_dataContext.Users.Remove(
+				await _dataContext.Users.FirstOrDefaultAsync(u => u.Id == id)
 			);
 			return await _dataContext.SaveChangesAsync();
 		}

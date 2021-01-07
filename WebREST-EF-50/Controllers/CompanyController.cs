@@ -44,16 +44,16 @@ namespace WebREST_EF_50.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> AddCompany(Company company)
+        public async Task<IActionResult> AddCompany(CompanyBase companyBase)
         {
-            var result = await _companyService.AddCompany(company);
+            var result = await _companyService.AddCompany(companyBase);
             return result == null ? NotFound() : Ok(result);
         }
 
         [HttpPut]
-        public async Task<IActionResult> UpdateCompany(Company company)
+        public async Task<IActionResult> UpdateCompany(CompanyBase companyBase)
         {
-            var result = await _companyService.UpdateCompany(company);
+            var result = await _companyService.UpdateCompany(companyBase);
             return result == null ? NotFound() : Ok(result);
         }
 

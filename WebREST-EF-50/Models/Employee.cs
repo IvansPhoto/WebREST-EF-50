@@ -17,8 +17,8 @@ namespace WebREST_EF_50.Models
 
 		public class Full : Employee
 		{
-			public User? ResponsibleUser { get; set; }
-			public Company? Company { get; set; }
+			public IUserBase? ResponsibleUser { get; set; }
+			public CompanyBase? Company { get; set; }
 			public List<Objective> Objectives { get; set; } = new();
 			public List<Project> Projects { get; set; } = new();
 

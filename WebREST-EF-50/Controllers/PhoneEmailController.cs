@@ -10,7 +10,7 @@ namespace WebREST_EF_50.Controllers
     [Route(RouteNames.PhoneEmailRoute)]
     public class PhoneEmailController : ControllerBase
     {
-        private IPhonesEmailService _phonesEmailService;
+        private readonly IPhonesEmailService _phonesEmailService;
 
         public PhoneEmailController(IPhonesEmailService phonesEmailService)
         {

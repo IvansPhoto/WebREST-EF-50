@@ -46,14 +46,14 @@ namespace WebREST_EF_50.Controllers
 
         [HttpPost]
         [Consumes("application/json")]
-        public async Task<IActionResult> PostOneUser([FromBody] User user)
+        public async Task<IActionResult> PostOneUser([FromBody] IUserBase user)
         {
             return Ok(await _userService.PostOneUser(user));
         }
 
         [HttpPut]
         [Consumes("application/json")]
-        public async Task<IActionResult> UpdateOneUser([FromBody] User user)
+        public async Task<IActionResult> UpdateOneUser([FromBody] IUserBase user)
         {
             return Ok(await _userService.UpdateOneUser(user));
         }

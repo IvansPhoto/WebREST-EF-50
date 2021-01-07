@@ -3,48 +3,53 @@ using System.ComponentModel.DataAnnotations;
 
 namespace WebREST_EF_50.Models
 {
-	public class User
+	public class UserBase : IUserBase
 	{
 		public long Id { get; set; }
-
 		public string Name { get; set; } = string.Empty;
 		public string Surname { get; set; } = string.Empty;
-
 		public List<Phone> Phones { get; set; } = new();
 		public List<Email> Emails { get; set; } = new();
-		public AccessLevel Access { get; set; } = AccessLevel.User;
+		public UserAccessLevel UserAccessLevel { get; set; } = UserAccessLevel.User;
 
-		public enum AccessLevel
-		{
-			User = 0,
-			LocalAdmin = 1,
-			SuperVisor = 2
-		}
-
-		public User()
+		public UserBase()
 		{
 		}
+	}
 
-		public class Full : User
+	public class UserFull : IUserBase, IUserFull
+	{
+		public long Id { get; set; }
+		public string Name { get; set; } = string.Empty;
+		public string Surname { get; set; } = string.Empty;
+		public List<Phone> Phones { get; set; } = new();
+		public List<Email> Emails { get; set; } = new();
+		public UserAccessLevel UserAccessLevel { get; set; } = UserAccessLevel.User;
+
+		public List<Objective> Objectives { get; set; } = new();
+		public List<CompanyBase> Companies { get; set; } = new();
+		public List<Employee> Employees { get; set; } = new();
+		public List<Project> Projects { get; set; } = new();
+
+		public UserFull()
 		{
-			public List<Objective> Objectives { get; set; } = new();
-			public List<Company> Companies { get; set; } = new();
-			public List<Employee> Employees { get; set; } = new();
-			public List<Project> Projects { get; set; } = new();
-
-			public Full()
-			{
-			}
-
-			public Full(User user)
-			{
-				Id = user.Id;
-				Name = user.Name;
-				Surname = user.Surname;
-				Phones = user.Phones;
-				Emails = user.Emails;
-				Access = user.Access;
-			}
 		}
+
+		public UserFull(IUserBase userBaseBase)
+		{
+			Id = userBaseBase.Id;
+			Name = userBaseBase.Name;
+			Surname = userBaseBase.Surname;
+			Phones = userBaseBase.Phones;
+			Emails = userBaseBase.Emails;
+			UserAccessLevel = userBaseBase.UserAccessLevel;
+		}
+	}
+
+	public enum UserAccessLevel
+	{
+		User = 0,
+		LocalAdmin = 1,
+		SuperVisor = 2
 	}
 }

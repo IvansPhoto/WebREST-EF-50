@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace WebREST_EF_50.Models
 {
-	public class Company
+	public class CompanyBase : ICompanyBase
 	{
 		public long Id { get; set; }
 		public string Name { get; set; } = string.Empty;
@@ -11,30 +11,35 @@ namespace WebREST_EF_50.Models
 		public List<Phone> Phones { get; set; } = new();
 		public List<Email> Emails { get; set; } = new();
 
-		public Company()
+		public CompanyBase()
+		{
+		}
+	}
+
+	public class CompanyFull : ICompanyFull
+	{
+		public long Id { get; set; }
+		public string Name { get; set; } = string.Empty;
+		public string Address { get; set; } = string.Empty;
+		public List<Phone> Phones { get; set; } = new();
+		public List<Email> Emails { get; set; } = new();
+		public IUserBase? ResponsibleUser { get; set; }
+		public List<Employee> Employees { get; set; } = new();
+		public List<Objective> Objectives { get; set; } = new();
+		public List<Project> Projects { get; set; } = new();
+		public CompanyBase? HqCompany { get; set; }
+
+		public CompanyFull()
 		{
 		}
 
-		public class Full : Company
+		public CompanyFull(ICompanyBase companyBase)
 		{
-			public User? ResponsibleUser { get; set; }
-			public List<Employee> Employees { get; set; } = new();
-			public List<Objective> Objectives { get; set; } = new();
-			public List<Project> Projects { get; set; } = new();
-			public Company? HqCompany { get; set; }
-
-			public Full()
-			{
-			}
-
-			public Full(Company company)
-			{
-				Id = company.Id;
-				Name = company.Name;
-				Address = company.Address;
-				Phones = company.Phones;
-				Emails = company.Emails;
-			}
+			Id = companyBase.Id;
+			Name = companyBase.Name;
+			Address = companyBase.Address;
+			Phones = companyBase.Phones;
+			Emails = companyBase.Emails;
 		}
 	}
 }

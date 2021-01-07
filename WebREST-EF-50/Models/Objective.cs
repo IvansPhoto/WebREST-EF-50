@@ -28,8 +28,8 @@ namespace WebREST_EF_50.Models
 
 		public class Full : Objective
 		{
-			public User? ResponsibleUser { get; set; }
-			public Company? Company { get; set; }
+			public IUserBase? ResponsibleUser { get; set; }
+			public CompanyBase? Company { get; set; }
 			public Employee? Employee { get; set; }
 			public Project? Project { get; set; }
 

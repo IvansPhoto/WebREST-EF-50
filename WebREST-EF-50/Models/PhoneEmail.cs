@@ -15,8 +15,8 @@ namespace WebREST_EF_50.Models
 
 		public class Full : Phone
 		{
-			public User? User { get; set; }
-			public Company? Company { get; set; }
+			public IUserBase? User { get; set; }
+			public CompanyBase? Company { get; set; }
 			public Employee? Employee { get; set; }
 
 			public Full()
@@ -44,8 +44,8 @@ namespace WebREST_EF_50.Models
 
 		public class Full : Email
 		{
-			public User? User { get; set; }
-			public Company? Company { get; set; }
+			public IUserBase? User { get; set; }
+			public CompanyBase? Company { get; set; }
 			public Employee? Employee { get; set; }
 
 			public Full()

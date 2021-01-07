@@ -2,21 +2,21 @@
 
 namespace WebREST_EF_50.Models
 {
-	public interface IUserBase
+	public interface ICompanyBase
 	{
 		public long Id { get; set; }
 		public string Name { get; set; }
-		public string Surname { get; set; }
+		public string Address { get; set; }
 		public List<Phone> Phones { get; set; }
 		public List<Email> Emails { get; set; }
-		public UserAccessLevel UserAccessLevel { get; set; }
 	}
 
-	public interface IUserFull : IUserBase
+	public interface ICompanyFull : ICompanyBase
 	{
-		public List<Objective> Objectives { get; set; }
-		public List<CompanyBase> Companies { get; set; }
+		public IUserBase? ResponsibleUser { get; set; }
 		public List<Employee> Employees { get; set; }
+		public List<Objective> Objectives { get; set; }
 		public List<Project> Projects { get; set; }
+		public CompanyBase? HqCompany { get; set; }
 	}
 }
