@@ -12,7 +12,7 @@ namespace WebREST_EF_50.Data
 	{
 		public DataContext(DbContextOptions<DataContext> options) : base(options) {}
 
-		public DbSet<User.Full> UsersFull { get; set; }
+		public DbSet<IUserFull> UsersFull { get; set; }
 		public DbSet<Company.Full> CompaniesFull { get; set; }
 		public DbSet<Employee.Full> EmployeesFull { get; set; }
 		public DbSet<Objective.Full> ObjectivesFull { get; set; }
