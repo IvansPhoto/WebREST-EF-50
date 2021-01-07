@@ -16,9 +16,9 @@ namespace WebREST_EF_50.Services.Objectives
             _dataContext = dataContext;
         }
 
-        public async Task<List<Objective>> GetAllObjectives(string query, int skipRecords, int perPage)
+        public async Task<List<Objective.Full>> GetAllObjectives(string query, int skipRecords, int perPage)
         {
-            return await _dataContext.Objectives
+            return await _dataContext.ObjectivesFull
                 .Skip(skipRecords)
                 .Take(perPage)
                 .OrderBy(objective => objective.Id)
@@ -28,11 +28,11 @@ namespace WebREST_EF_50.Services.Objectives
                 .ToListAsync();
         }
 
-        public async Task<List<Objective>> GetRelatedObjectives(
+        public async Task<List<Objective.Full>> GetRelatedObjectives(
             int skipRecords, int perPage, int userId = 0, int companyId = 0, int employeeId = 0, int projectId = 0
         )
         {
-            return await _dataContext.Objectives
+            return await _dataContext.ObjectivesFull
                 .Skip(skipRecords)
                 .Take(perPage)
                 .OrderBy(objective => objective.Id)
@@ -44,30 +44,31 @@ namespace WebREST_EF_50.Services.Objectives
                 .ToListAsync();
         }
 
-        public async Task<Objective> GetOneObjectiveById(int id)
+        public async Task<Objective.Full> GetOneObjectiveById(int id)
         {
-            return await _dataContext.Objectives.FirstOrDefaultAsync(objective => objective.Id == id);
+            return await _dataContext.ObjectivesFull.FirstOrDefaultAsync(objective => objective.Id == id);
         }
 
-        public async Task<Objective?> PostOneObjective(Objective objective)
+        public async Task<Objective.Full?> PostOneObjective(Objective objectiveBase)
         {
-            // TODO: Check the correctness returning Objective
-            var newObj = await _dataContext.Objectives.AddAsync(objective);
+            Objective.Full objective = new(objectiveBase);
+            var newObj = await _dataContext.ObjectivesFull.AddAsync(objective);
             var rows = await _dataContext.SaveChangesAsync();
             return rows == 0 ? null : newObj.Entity;
         }
 
-        public async Task<Objective?> UpdateOneObjective(Objective objective)
+        public async Task<Objective.Full?> UpdateOneObjective(Objective objectiveBase)
         {
-            var updatedObj = _dataContext.Objectives.Update(objective);
+            Objective.Full objective = new(objectiveBase);
+            var updatedObj = _dataContext.ObjectivesFull.Update(objective);
             var rows = await _dataContext.SaveChangesAsync();
             return rows == 0 ? null : updatedObj.Entity;
         }
 
         public async Task<int> DeleteOneObjective(int id)
         {
-            _dataContext.Objectives.Remove(
-                await _dataContext.Objectives.FirstOrDefaultAsync(objective => objective.Id == id)
+            _dataContext.ObjectivesFull.Remove(
+                await _dataContext.ObjectivesFull.FirstOrDefaultAsync(objective => objective.Id == id)
             );
             return await _dataContext.SaveChangesAsync();
         }

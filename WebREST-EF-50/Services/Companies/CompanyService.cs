@@ -17,10 +17,10 @@ namespace WebREST_EF_50.Services.Companies
             _dataContext = dataContext;
         }
 
-        public async Task<List<Company>> GetCompaniesForUser(int skipRecords, int perPage, int userId)
+        public async Task<List<Company.Full>> GetCompaniesForUser(int skipRecords, int perPage, int userId)
         {
             // Console.WriteLine($"skipRecords: {skipRecords}, perPage:{perPage}, userId:{userId}");
-            return await _dataContext.Company
+            return await _dataContext.CompaniesFull
                 .OrderBy(company => company.Id)
                 .Skip(skipRecords)
                 .Take(perPage)
@@ -35,9 +35,9 @@ namespace WebREST_EF_50.Services.Companies
                 .ToListAsync();
         }
 
-        public async Task<List<Company>> GetAllCompanies(int skipRecords, int perPage)
+        public async Task<List<Company.Full>> GetAllCompanies(int skipRecords, int perPage)
         {
-            return await _dataContext.Company
+            return await _dataContext.CompaniesFull
                 .OrderBy(company => company.Id)
                 .Skip(skipRecords)
                 .Take(perPage)
@@ -51,9 +51,9 @@ namespace WebREST_EF_50.Services.Companies
                 .ToListAsync();
         }
 
-        public async Task<Company?> GetOneCompany(int id)
+        public async Task<Company.Full?> GetOneCompany(int id)
         {
-            return await _dataContext.Company
+            return await _dataContext.CompaniesFull
                 .Include(company => company.Phones)
                 .Include(company => company.Emails)
                 .Include(company => company.Objectives)
@@ -64,25 +64,24 @@ namespace WebREST_EF_50.Services.Companies
                 .FirstOrDefaultAsync(company => company.Id == id);
         }
 
-        public async Task<Company?> AddCompany(Company company)
+        public async Task<Company.Full?> AddCompany(Company company)
         {
-            company.ResponsibleUser = await _dataContext.Users.FindAsync(company.ResponsibleUser.Id);
-            var newCompany = await _dataContext.Company.AddAsync(company);
+            var newCompany = await _dataContext.CompaniesFull.AddAsync(new Company.Full(company));
             var rows = await _dataContext.SaveChangesAsync();
             return rows == 0 ? null : newCompany.Entity;
         }
 
-        public async Task<Company?> UpdateCompany(Company company)
+        public async Task<Company.Full?> UpdateCompany(Company company)
         {
-            var updatedCompany = _dataContext.Company.Update(company);
+            var updatedCompany = _dataContext.CompaniesFull.Update(new Company.Full(company));
             var rows = await _dataContext.SaveChangesAsync();
             return rows == 0 ? null : updatedCompany.Entity;
         }
 
         public async Task<int> DeleteCompany(int id)
         {
-            _dataContext.Company.Remove(
-                await _dataContext.Company.FirstOrDefaultAsync(com => com.Id == id)
+            _dataContext.CompaniesFull.Remove(
+                await _dataContext.CompaniesFull.FirstOrDefaultAsync(com => com.Id == id)
             );
             return await _dataContext.SaveChangesAsync();
         }

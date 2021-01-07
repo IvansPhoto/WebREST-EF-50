@@ -12,14 +12,13 @@ namespace WebREST_EF_50.Data
 	{
 		public DataContext(DbContextOptions<DataContext> options) : base(options) {}
 
-		public DbSet<User> Users { get; set; }
-		public DbSet<User.Admin> Admins { get; set; }
-		public DbSet<Company> Company { get; set; }
-		public DbSet<Employee> Employees { get; set; }
-		public DbSet<Objective> Objectives { get; set; }
-		public DbSet<Project> Projects { get; set; }
-		public DbSet<Email> Emails { get; set; }
-		public DbSet<Phone> Phones { get; set; }
+		public DbSet<User.Full> UsersFull { get; set; }
+		public DbSet<Company.Full> CompaniesFull { get; set; }
+		public DbSet<Employee.Full> EmployeesFull { get; set; }
+		public DbSet<Objective.Full> ObjectivesFull { get; set; }
+		public DbSet<Project.Full> ProjectsFull { get; set; }
+		public DbSet<Email.Full> EmailsFull { get; set; }
+		public DbSet<Phone.Full> PhonesFull { get; set; }
 
 		//protected override void OnConfiguring(DbContextOptionsBuilder options) => options.UseSqlite("Data Source=crm.db");
 

@@ -21,7 +21,7 @@ namespace WebREST_EF_50.Controllers
         [HttpGet]
         public async Task<IActionResult> GetUsers()
         {
-            List<User> users = await _userService.GetUsers();
+            var users = await _userService.GetUsers();
             if (users.Count == 0) return NotFound();
             return Ok(users);
         }

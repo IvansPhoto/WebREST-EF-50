@@ -16,9 +16,9 @@ namespace WebREST_EF_50.Services.Projects
             _dataContext = dataContext;
         }
 
-        public async Task<List<Project>> GetProjectsByRelatedId(int skipRecords, int perPage, int userId = 0, int companyId = 0, int employeeId = 0)
+        public async Task<List<Project.Full>> GetProjectsByRelatedId(int skipRecords, int perPage, int userId = 0, int companyId = 0, int employeeId = 0)
         {
-            return await _dataContext.Projects
+            return await _dataContext.ProjectsFull
                 .Skip(skipRecords)
                 .Take(perPage)
                 .Where(project => companyId != 0 && project.Company != null && project.Company.Id == companyId ||
@@ -27,9 +27,9 @@ namespace WebREST_EF_50.Services.Projects
                 .ToListAsync();
         }
 
-        public async Task<List<Project>> GetProjectsByQuery(int skipRecords, int perPage, string query)
+        public async Task<List<Project.Full>> GetProjectsByQuery(int skipRecords, int perPage, string query)
         {
-            return await _dataContext.Projects
+            return await _dataContext.ProjectsFull
                 .Skip(skipRecords)
                 .Take(perPage)
                 .Where(project =>
@@ -38,37 +38,37 @@ namespace WebREST_EF_50.Services.Projects
                 .ToListAsync();
         }
 
-        public async Task<List<Project>> GetAllProjects(int skipRecords, int perPage)
+        public async Task<List<Project.Full>> GetAllProjects(int skipRecords, int perPage)
         {
-            return await _dataContext.Projects
+            return await _dataContext.ProjectsFull
                 .Skip(skipRecords)
                 .Take(perPage)
                 .ToListAsync();
         }
 
-        public async Task<Project> GetOneProject(int id)
+        public async Task<Project.Full> GetOneProject(int id)
         {
-            return await _dataContext.Projects.FirstOrDefaultAsync(project => project.Id == id);
+            return await _dataContext.ProjectsFull.FirstOrDefaultAsync(project => project.Id == id);
         }
 
-        public async Task<Project?> AddProjects(Project project)
+        public async Task<Project.Full?> AddProjects(Project project)
         {
-            var newProject = await _dataContext.Projects.AddAsync(project);
+            var newProject = await _dataContext.ProjectsFull.AddAsync(new Project.Full(project));
             var rows = await _dataContext.SaveChangesAsync();
             return rows == 0 ? null : newProject.Entity;
         }
 
-        public async Task<Project?> UpdateProject(Project project)
+        public async Task<Project.Full?> UpdateProject(Project project)
         {
-            var updatedProject = _dataContext.Projects.Update(project);
+            var updatedProject = _dataContext.ProjectsFull.Update(new Project.Full(project));
             var rows = await _dataContext.SaveChangesAsync();
             return rows == 0 ? null : updatedProject.Entity;
         }
 
         public async Task<int> DeleteProject(int id)
         {
-            _dataContext.Projects.Remove(
-                await _dataContext.Projects.FirstOrDefaultAsync(project => project.Id == id)
+            _dataContext.ProjectsFull.Remove(
+                await _dataContext.ProjectsFull.FirstOrDefaultAsync(project => project.Id == id)
             );
             return await _dataContext.SaveChangesAsync();
         }
