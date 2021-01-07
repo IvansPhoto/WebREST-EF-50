@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace WebREST_EF_50.Migrations
 {
-    public partial class InitialCreation : Migration
+    public partial class Init : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -59,7 +59,7 @@ namespace WebREST_EF_50.Migrations
                         .Annotation("Sqlite:Autoincrement", true),
                     Name = table.Column<string>(type: "TEXT", nullable: false),
                     ResponsibleUserId = table.Column<long>(type: "INTEGER", nullable: false),
-                    Surname = table.Column<string>(type: "TEXT", nullable: true),
+                    Surname = table.Column<string>(type: "TEXT", nullable: false),
                     CompanyId = table.Column<long>(type: "INTEGER", nullable: true)
                 },
                 constraints: table =>
@@ -193,8 +193,8 @@ namespace WebREST_EF_50.Migrations
                 {
                     Id = table.Column<long>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
-                    ResponsibleUserId = table.Column<long>(type: "INTEGER", nullable: false),
                     Title = table.Column<string>(type: "TEXT", nullable: false),
+                    ResponsibleUserId = table.Column<long>(type: "INTEGER", nullable: false),
                     Description = table.Column<string>(type: "TEXT", nullable: false),
                     ObjectType = table.Column<int>(type: "INTEGER", nullable: false),
                     IsFinished = table.Column<bool>(type: "INTEGER", nullable: false),
