@@ -32,4 +32,15 @@ namespace WebREST_EF_50.Models
 			Surname = surname;
 		}
 	}
+
+	class EmployeeFull : Employee
+	{
+		public EmployeeFull(string name) : base(name)
+		{
+		}
+
+		public EmployeeFull(string name, string surname) : base(name, surname)
+		{
+		}
+	}
 }

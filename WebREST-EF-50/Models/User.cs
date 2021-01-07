@@ -48,4 +48,13 @@ namespace WebREST_EF_50.Models
 			}
 		}
 	}
+
+	class UserFull : User
+	{
+		public List<Objective> Objectives { get; set; } = new();
+		public List<Company> Companies { get; set; } = new();
+		public List<Employee> Employees { get; set; } = new();
+		public List<Project> Projects { get; set; } = new();
+		public UserFull(string name, string surname) : base(name, surname) { }
+	}
 }
