@@ -44,7 +44,7 @@ namespace WebREST_EF_50.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> AddCompany([FromBody] Company company)
+        public async Task<IActionResult> AddCompany(Company company)
         {
             var result = await _companyService.AddCompany(company);
             return result == null ? NotFound() : Ok(result);

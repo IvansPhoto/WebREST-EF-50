@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="DataSourceManagerImpl" format="xml" multifile-model="true">
-    <data-source source="LOCAL" name="crm.sqlite" uuid="7033429a-fe29-407d-9247-8585627c44a7">
+    <data-source source="LOCAL" name="crm.db" uuid="41df2a54-39fb-4fbc-ba46-fa522f788071">
       <driver-ref>sqlite.xerial</driver-ref>
       <synchronize>true</synchronize>
       <jdbc-driver>org.sqlite.JDBC</jdbc-driver>

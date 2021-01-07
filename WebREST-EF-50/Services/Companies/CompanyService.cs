@@ -66,6 +66,7 @@ namespace WebREST_EF_50.Services.Companies
 
         public async Task<Company?> AddCompany(Company company)
         {
+            company.ResponsibleUser = await _dataContext.Users.FindAsync(company.ResponsibleUser.Id);
             var newCompany = await _dataContext.Company.AddAsync(company);
             var rows = await _dataContext.SaveChangesAsync();
             return rows == 0 ? null : newCompany.Entity;
