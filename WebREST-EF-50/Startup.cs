@@ -34,7 +34,7 @@ namespace WebREST_EF_50
                 x => x.UseSqlite(Configuration.GetConnectionString("SQLite"))
             );
 
-            // DbContext for Blazor...
+            // DbContext for Blazor to achieve DbContext lifetime
             // services.AddDbContextFactory<BlazorDataContext>(
             //     options => options.UseSqlite(Configuration.GetConnectionString("SQLite"))
             // );
@@ -50,12 +50,9 @@ namespace WebREST_EF_50
             services.AddRazorPages().AddNewtonsoftJson(options =>
                 options.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore);
 
-            // Add Blazor
-            // TODO: EF - DbContext lifetime! https://docs.microsoft.com/en-us/ef/core/dbcontext-configuration/#using-a-dbcontext-factory-eg-for-blazor
             services.AddRazorPages();
             services.AddServerSideBlazor();
 
-            // TODO: Add Admin
             services.AddScoped<IUserService, UserService>();
             services.AddScoped<IObjectiveService, ObjectiveService>();
             services.AddScoped<ICompanyService, CompanyService>();
